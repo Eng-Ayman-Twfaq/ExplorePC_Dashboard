@@ -1,0 +1,129 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+@import '~@fortawesome/fontawesome-free/css/all.min.css';
+
+/* لتنسيق الترقيم الصفحي */
+.pagination {
+    display: inline-flex;
+}
+
+.pagination .page-item {
+    margin: 0 2px;
+}
+
+.pagination .page-link {
+    padding: 0.5rem 0.75rem;
+    border: 1px solid #d1d5db;
+    background: white;
+    color: #6b7280;
+}
+
+.pagination .page-item.active .page-link {
+    background: #3b82f6;
+    color: white;
+    border-color: #3b82f6;
+}
+
+.pagination .page-link:hover {
+    background: #f3f4f6;
+}
+/* رسائل التنبيه */
+.alert {
+    transition: all 0.3s ease;
+}
+
+.alert-success {
+    background-color: #f0fff4;
+    border-color: #68d391;
+    color: #2f855a;
+}
+
+/* resources/css/app.css */
+.action-btn {
+    transition: all 0.2s ease;
+}
+
+.action-btn:hover {
+    transform: scale(1.1);
+}
+.alert-fade {
+    transition: opacity 0.5s ease-out;
+}
+
+
+
+/* تنسيقات عامة للوضعين الفاتح والداكن */
+@layer components {
+    .dark .dark\:bg-dark-800 {
+        background-color: #1a202c;
+    }
+    .dark .dark\:bg-dark-700 {
+        background-color: #2d3748;
+    }
+    .dark .dark\:text-gray-100 {
+        color: #f7fafc;
+    }
+    .dark .dark\:text-gray-300 {
+        color: #e2e8f0;
+    }
+    .dark .dark\:border-gray-600 {
+        border-color: #4a5568;
+    }
+    .dark .dark\:shadow-lg {
+        box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+    }
+}
+
+/* تنسيقات الجدول */
+.table-container {
+    overflow-x: auto;
+}
+
+.product-table {
+    min-width: 100%;
+}
+
+.product-table th {
+    white-space: nowrap;
+}
+
+/* تأثيرات عند التحويم */
+.hover\:scale-105:hover {
+    transform: scale(1.05);
+}
+
+.transition-all {
+    transition: all 0.3s ease;
+}
+
+/* تنسيقات البطاقات */
+.card {
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+}
+
+/* تنسيقات النجوم */
+.rating-stars {
+    direction: ltr;
+    unicode-bidi: bidi-override;
+}
+
+/* زر تبديل الوضع الداكن */
+.theme-toggle {
+    position: fixed;
+    bottom: 1rem;
+    right: 1rem;
+    z-index: 50;
+}
+
+.arabic-text {
+    direction: rtl;
+    unicode-bidi: bidi-override;
+    text-align: right;
+    font-family: 'Tajawal', sans-serif;
+}
