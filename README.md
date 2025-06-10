@@ -53,30 +53,51 @@
 
 ## 💻 التقنية المستخدمة
 
-dart
-// تقنيات Flutter الأساسية
+### 📱 Flutter Frontend
+yaml
 dependencies:
-  flutter_bloc: ^8.1.3
-  firebase_core: ^2.18.0
-  cloud_firestore: ^4.9.0
-  syncfusion_flutter_charts: ^23.1.40
-php
-// تقنيات Backend
+  flutter_bloc: ^8.1.3       # لإدارة الحالة
+  firebase_core: ^2.18.0      # لربط Firebase
+  cloud_firestore: ^4.9.0     # لقاعدة البيانات
+  syncfusion_flutter_charts: ^23.1.40  # للرسوم البيانية
+🖥️ Laravel Backend
+json
 "require": {
   "laravel/framework": "^10.0",
-  "guzzlehttp/guzzle": "^7.0"
+  "guzzlehttp/guzzle": "^7.0"  # للاتصال بالخدمات الخارجية
 }
-🛠️ التنصيب
+🛠️ تنصيب المشروع
+1. استنساخ المستودع
 bash
-# الخطوات الأساسية
 git clone https://github.com/Eng-Ayman-Twfaq/ExplorePC_Dashboard.git
 cd ExplorePC-Dashboard
-flutter pub get  # لتطبيق Flutter
-composer install # للوحة التحكم Laravel
+2. تنصيب Flutter
+bash
+flutter pub get
+flutter run
+3. تنصيب Laravel
+bash
+composer install
+cp .env.example .env
+php artisan key:generate
 📞 الدعم والاتصال
 <div align="center">
-📧 ayman.tawfaq.developers@gmail.com
-📱 +967 770 883 615
+📧 البريد الإلكتروني: ayman.tawfaq.developers@gmail.com
+📱 الواتساب: +967 770 883 615
+
+https://img.shields.io/badge/GitHub-Profile-green?style=flat&logo=github
 
 </div>
-<div align="center"> <br> <sub>تم التطوير بواسطة <a href="https://github.com/770883616" style="color: #4CAF50;">AYMAN TAWFAQ</a> © 2025</sub> <br> <img src="images/homel.png" width="600" style="border-radius: 10px; margin-top: 20px;"> </div> ```
+<div align="center"> <sub>تم التطوير بواسطة <a href="https://github.com/Eng-Ayman-Twfaq" style="color: #4CAF50;">أيمن توفيق</a> © 2025</sub> </div> 
+✨ الميزات الإضافية:
+أيقونات مرئية لكل قسم (📌، 💻، 🛠️، إلخ).
+
+تنسيق الكود المميز بلون مختلف.
+
+روابط نشطة للبريد الإلكتروني وجيت هاب.
+
+تقسيم واضح باستخدام ---.
+
+صور مدمجة مع حواف مستديرة.
+
+درع (badge) لصفحة GitHub.
