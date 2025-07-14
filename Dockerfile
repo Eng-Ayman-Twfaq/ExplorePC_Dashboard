@@ -4,16 +4,17 @@ FROM php:8.3-apache
 # Enable Apache modules
 RUN a2enmod rewrite headers expires deflate
 
-# Install required PHP extensions
-RUN docker-php-ext-install pdo pdo_mysql mysqli opcache
-
-# Install ZIP extension for PHP
-RUN docker-php-ext-install zip
-
-# Install system dependencies
+# Install system dependencies (including libzip-dev)
 RUN apt-get update && \
-    apt-get install -y git zip unzip && \
-    rm -rf /var/lib/apt/lists/*
+    apt-get install -y \
+        git \
+        zip \
+        unzip \
+        libzip-dev \  # Required for PHP zip extension
+        && rm -rf /var/lib/apt/lists/*
+
+# Install required PHP extensions
+RUN docker-php-ext-install pdo pdo_mysql mysqli opcache zip
 
 # Set working directory
 WORKDIR /var/www/html
@@ -22,13 +23,13 @@ WORKDIR /var/www/html
 COPY . .
 
 # Install Composer
-RUN curl -sS https://getcomposer.org/installer  | php -- --install-dir=/usr/local/bin --filename=composer
+RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
 # Install dependencies
 RUN composer install --no-dev --optimize-autoloader
 
 # Generate key (if needed)
-RUN cp .env.example ..env && php artisan key:generate --force
+RUN cp .env.example .env && php artisan key:generate --force
 
 # Clear caches
 RUN php artisan config:clear && php artisan route:clear && php artisan view:clear
