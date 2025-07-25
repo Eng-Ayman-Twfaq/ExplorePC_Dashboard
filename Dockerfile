@@ -4,7 +4,7 @@ FROM php:8.3-apache
 # Enable Apache modules
 RUN a2enmod rewrite headers expires deflate
 
-# Install system dependencies
+# Install system dependencies including Node.js
 RUN apt-get update && \
     apt-get install -y \
         git \
@@ -16,7 +16,7 @@ RUN apt-get update && \
     rm -rf /var/lib/apt/lists/*
 
 # Install required PHP extensions
-RUN docker-php-ext-install pdo pdo_mysql mysqli opcache zip
+RUN docker-php-ext-install pdo pdo_mysql mysqli opcache zip bcmath
 
 # Set working directory
 WORKDIR /var/www/html
@@ -30,18 +30,18 @@ RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local
 # Install PHP dependencies
 RUN composer install --no-dev --optimize-autoloader
 
-# Install Node dependencies and build assets
+# Install Node dependencies and build frontend assets
 RUN npm install && npm run build
 
 # Generate key
 RUN cp .env.example .env && php artisan key:generate --force
 
-# Clear caches
-RUN php artisan config:clear && php artisan route:clear && php artisan view:clear
+# Clear and cache configs
+RUN php artisan config:cache && php artisan route:cache
 
 # Set proper permissions
-RUN chown -R www-data:www-data /var/www/html/bootstrap/cache /var/www/html/storage && \
-    chmod -R 775 /var/www/html/bootstrap/cache /var/www/html/storage
+RUN chown -R www-www-data /var/www/html && \
+    chmod -R 775 /var/www/html/storage /var/www/html/bootstrap/cache
 
 # Configure Apache document root
 RUN echo "DocumentRoot /var/www/html/public" > /etc/apache2/sites-available/000-default.conf && \
