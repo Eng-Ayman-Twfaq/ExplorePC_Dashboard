@@ -34,5 +34,19 @@ RUN cp .env.example .env && php artisan key:generate --force
 # Clear caches
 RUN php artisan config:clear && php artisan route:clear && php artisan view:clear
 
+# Set proper permissions
+RUN chown -R www-data:www-data /var/www/html/bootstrap/cache /var/www/html/storage && \
+    chmod -R 775 /var/www/html/bootstrap/cache /var/www/html/storage
+
+# Configure Apache document root
+RUN echo "DocumentRoot /var/www/html/public" > /etc/apache2/sites-available/000-default.conf && \
+    echo "<Directory /var/www/html/public>" >> /etc/apache2/sites-available/000-default.conf && \
+    echo "    AllowOverride All" >> /etc/apache2/sites-available/000-default.conf && \
+    echo "    Require all granted" >> /etc/apache2/sites-available/000-default.conf && \
+    echo "</Directory>" >> /etc/apache2/sites-available/000-default.conf
+
 # Expose port
 EXPOSE 80
+
+# Start Apache
+CMD ["apache2-foreground"]
