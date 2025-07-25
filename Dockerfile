@@ -10,8 +10,8 @@ RUN apt-get update && \
         git \
         zip \
         unzip \
-        libzip-dev \  # Required for PHP zip extension
-        && rm -rf /var/lib/apt/lists/*
+        libzip-dev && \
+    rm -rf /var/lib/apt/lists/*
 
 # Install required PHP extensions
 RUN docker-php-ext-install pdo pdo_mysql mysqli opcache zip
