@@ -4,13 +4,15 @@ FROM php:8.3-apache
 # Enable Apache modules
 RUN a2enmod rewrite headers expires deflate
 
-# Install system dependencies (including libzip-dev)
+# Install system dependencies
 RUN apt-get update && \
     apt-get install -y \
         git \
         zip \
         unzip \
-        libzip-dev && \
+        libzip-dev \
+        nodejs \
+        npm && \
     rm -rf /var/lib/apt/lists/*
 
 # Install required PHP extensions
@@ -25,10 +27,13 @@ COPY . .
 # Install Composer
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
-# Install dependencies
+# Install PHP dependencies
 RUN composer install --no-dev --optimize-autoloader
 
-# Generate key (if needed)
+# Install Node dependencies and build assets
+RUN npm install && npm run build
+
+# Generate key
 RUN cp .env.example .env && php artisan key:generate --force
 
 # Clear caches
